@@ -500,10 +500,10 @@ void CInputManager::onMouseButton(wlr_pointer_button_event* e) {
     m_tmrLastCursorMovement.reset();
 
     if (e->state == WL_POINTER_BUTTON_STATE_PRESSED) {
-        std::system("notify-send -u low mousedown");
+        std::system("notify-send -u low down1");
         m_lCurrentlyHeldButtons.push_back(e->button);
     } else {
-        std::system("notify-send -u low mouseup");
+        std::system("notify-send -u low up1");
         if (std::find_if(m_lCurrentlyHeldButtons.begin(), m_lCurrentlyHeldButtons.end(), [&](const auto& other) { return other == e->button; }) == m_lCurrentlyHeldButtons.end())
             return;
         std::erase_if(m_lCurrentlyHeldButtons, [&](const auto& other) { return other == e->button; });
@@ -677,7 +677,9 @@ void CInputManager::processMouseDownNormal(wlr_pointer_button_event* e) {
                 g_pCompositor->changeWindowZOrder(g_pCompositor->m_pLastWindow.lock(), true);
 
             break;
-        case WL_POINTER_BUTTON_STATE_RELEASED: break;
+        case WL_POINTER_BUTTON_STATE_RELEASED:
+            std::system(std::format("notify-send -u low '{}'", e->button));
+            break;
     }
 
     // notify app if we didnt handle it
@@ -1284,7 +1286,8 @@ bool CInputManager::shouldIgnoreVirtualKeyboard(SP<IKeyboard> pKeyboard) {
 }
 
 void CInputManager::refocus() {
-    mouseMoveUnified(0, true);
+    // mouseMoveUnified(0, true);
+    std::system("notify-send -u low refocus");
 }
 
 void CInputManager::updateDragIcon() {
