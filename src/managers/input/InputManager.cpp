@@ -676,17 +676,14 @@ void CInputManager::processMouseDownNormal(wlr_pointer_button_event* e) {
             if (g_pCompositor->m_pLastWindow.lock() && g_pCompositor->m_pLastWindow.lock()->m_bIsFloating)
                 g_pCompositor->changeWindowZOrder(g_pCompositor->m_pLastWindow.lock(), true);
 
-            break;
-        case WL_POINTER_BUTTON_STATE_RELEASED:
-            if (e->button == 272) {
-            //     std::system("notify-send -u low leftrelease");
-            // } else if (e->button == 275) {
+            if (e->button == 273) {
                 const auto DISPATCHER = g_pKeybindManager->m_mDispatchers.find("togglespecialworkspace");
                 DISPATCHER->second("magic");
                 DISPATCHER->second("magic");
             }
-            // std::system(std::format("notify-send -u low '{}'", e->button).c_str());
+
             break;
+        case WL_POINTER_BUTTON_STATE_RELEASED: break;
     }
 
     // notify app if we didnt handle it
