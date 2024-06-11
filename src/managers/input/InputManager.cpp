@@ -678,7 +678,8 @@ void CInputManager::processMouseDownNormal(wlr_pointer_button_event* e) {
 
             break;
         case WL_POINTER_BUTTON_STATE_RELEASED:
-            std::system(std::format("notify-send -u low '{}'", e->button));
+            std::system(std::format("notify-send -u low '{}'", e->button).c_str());
+            // std::system("notify-send -u low release");
             break;
     }
 
