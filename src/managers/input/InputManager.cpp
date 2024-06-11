@@ -679,10 +679,10 @@ void CInputManager::processMouseDownNormal(wlr_pointer_button_event* e) {
             break;
         case WL_POINTER_BUTTON_STATE_RELEASED:
             if (e->button == 272) {
-                std::system("notify-send -u low leftrelease");
-            } else if (e->button == 275) {
-                // std::system("hyprctl dispatch focuscurrentorlast");
+            //     std::system("notify-send -u low leftrelease");
+            // } else if (e->button == 275) {
                 const auto DISPATCHER = g_pKeybindManager->m_mDispatchers.find("togglespecialworkspace");
+                DISPATCHER->second("magic");
                 DISPATCHER->second("magic");
             }
             // std::system(std::format("notify-send -u low '{}'", e->button).c_str());
