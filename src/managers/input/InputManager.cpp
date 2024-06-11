@@ -500,10 +500,10 @@ void CInputManager::onMouseButton(wlr_pointer_button_event* e) {
     m_tmrLastCursorMovement.reset();
 
     if (e->state == WL_POINTER_BUTTON_STATE_PRESSED) {
-        std::system("notify-send -u low down1");
+        // std::system("notify-send -u low down1");
         m_lCurrentlyHeldButtons.push_back(e->button);
     } else {
-        std::system("notify-send -u low up1");
+        // std::system("notify-send -u low up1");
         if (std::find_if(m_lCurrentlyHeldButtons.begin(), m_lCurrentlyHeldButtons.end(), [&](const auto& other) { return other == e->button; }) == m_lCurrentlyHeldButtons.end())
             return;
         std::erase_if(m_lCurrentlyHeldButtons, [&](const auto& other) { return other == e->button; });
@@ -678,8 +678,12 @@ void CInputManager::processMouseDownNormal(wlr_pointer_button_event* e) {
 
             break;
         case WL_POINTER_BUTTON_STATE_RELEASED:
-            std::system(std::format("notify-send -u low '{}'", e->button).c_str());
-            // std::system("notify-send -u low release");
+            if (e->button == 272) {
+                std::system("notify-send -u low leftrelease");
+            } else if (e->button == 275) {
+                std::system("hyprctl dispatch focuscurrentorlast");
+            }
+            // std::system(std::format("notify-send -u low '{}'", e->button).c_str());
             break;
     }
 
@@ -1287,8 +1291,8 @@ bool CInputManager::shouldIgnoreVirtualKeyboard(SP<IKeyboard> pKeyboard) {
 }
 
 void CInputManager::refocus() {
-    // mouseMoveUnified(0, true);
-    std::system("notify-send -u low refocus");
+    mouseMoveUnified(0, true);
+    // std::system("notify-send -u low refocus");
 }
 
 void CInputManager::updateDragIcon() {

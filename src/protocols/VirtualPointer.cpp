@@ -50,7 +50,7 @@ CVirtualPointerV1Resource::CVirtualPointerV1Resource(SP<CZwlrVirtualPointerV1> r
         struct wlr_pointer_button_event event = {
             .pointer   = &pointer,
             .time_msec = timeMs,
-            .button    = button,
+            .button    = button, // 272-left, 273-right, 274-middle, 275-back, 276-forward
             .state     = (wl_pointer_button_state)state,
         };
         wl_signal_emit_mutable(&pointer.events.button, &event);
