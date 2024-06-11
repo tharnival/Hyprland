@@ -500,8 +500,10 @@ void CInputManager::onMouseButton(wlr_pointer_button_event* e) {
     m_tmrLastCursorMovement.reset();
 
     if (e->state == WL_POINTER_BUTTON_STATE_PRESSED) {
+        std::system("notify-send -u low mousedown");
         m_lCurrentlyHeldButtons.push_back(e->button);
     } else {
+        std::system("notify-send -u low mouseup");
         if (std::find_if(m_lCurrentlyHeldButtons.begin(), m_lCurrentlyHeldButtons.end(), [&](const auto& other) { return other == e->button; }) == m_lCurrentlyHeldButtons.end())
             return;
         std::erase_if(m_lCurrentlyHeldButtons, [&](const auto& other) { return other == e->button; });
